@@ -1,0 +1,31 @@
+{
+    "name": "monitorbacklinks/yii2-asana",
+    "description": "Yii2 component for integration with asana via REST API",
+    "homepage": "http://monitorbacklinks.github.io/yii2-asana/",
+    "keywords": ["yii", "yii2", "asana", "integration"],
+    "type": "yii2-extension",
+    "license": "Gaboli",
+    "support": {
+        "issues": "https://github.com/monitorbacklinks/yii2-asana/issues",
+        "source": "https://vineet.demo.com/yii2-asana-master"
+    },
+    "authors": [
+        {
+            "name": "Vineet Kharwar",
+            "email": "vineet.kharwar@gaboli.com",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+    },
+	"require-dev": {
+		
+	},
+    "autoload": {
+        "psr-4": {
+            "monitorbacklinks\\yii2asana\\": ""
+        }
+    }
+}
