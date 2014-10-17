@@ -11,7 +11,7 @@
  * Version: 2.8.1
  */
  
-namespace monitorbacklinks\yii2asana;
+namespace marshmeloo\yii2asana;
 
 use yii\base\Component;
 use yii\base\ErrorException;
