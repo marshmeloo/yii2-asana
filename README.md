@@ -1,16 +1,16 @@
-Yii2 Wordpress
+Yii2 Asana
 ==============
 
-[Yii2 Wordpress](http://monitorbacklinks.github.io/yii2-wordpress) is a component for [Yii2 framework](https://github.com/yiisoft/yii2) designed for integration with Wordpress CMS via XML-RPC API.
+[Yii2 Asana](http://marshmeloo.github.io/yii2-Asana) is a component for [Yii2 framework](https://github.com/yiisoft/yii2) designed for integration with Asana CMS via XML-RPC API.
 
-This component is built on top of [Wordpress XML-RPC PHP Client](https://github.com/letrunghieu/wordpress-xmlrpc-client) by [Hieu Le Trung](https://github.com/letrunghieu).
+This component is built on top of [Asana XML-RPC PHP Client](https://github.com/letrunghieu/Asana-xmlrpc-client) by [Hieu Le Trung](https://github.com/letrunghieu).
 
-[![Latest Stable Version](https://poser.pugx.org/monitorbacklinks/yii2-wordpress/v/stable.svg)](https://packagist.org/packages/monitorbacklinks/yii2-wordpress)
-[![Build Status](https://travis-ci.org/monitorbacklinks/yii2-wordpress.svg?branch=master)](https://travis-ci.org/monitorbacklinks/yii2-wordpress)
-[![Code Climate](https://codeclimate.com/github/monitorbacklinks/yii2-wordpress.png)](https://codeclimate.com/github/monitorbacklinks/yii2-wordpress)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/monitorbacklinks/yii2-wordpress/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/monitorbacklinks/yii2-wordpress/?branch=master)
-[![Version Eye](https://www.versioneye.com/php/monitorbacklinks:yii2-wordpress/badge.svg)](https://www.versioneye.com/php/monitorbacklinks:yii2-wordpress)
-[![License](https://poser.pugx.org/monitorbacklinks/yii2-wordpress/license.svg)](https://packagist.org/packages/monitorbacklinks/yii2-wordpress)
+[![Latest Stable Version](https://poser.pugx.org/marshmeloo/yii2-Asana/v/stable.svg)](https://packagist.org/packages/marshmeloo/yii2-Asana)
+[![Build Status](https://travis-ci.org/marshmeloo/yii2-Asana.svg?branch=master)](https://travis-ci.org/marshmeloo/yii2-Asana)
+[![Code Climate](https://codeclimate.com/github/marshmeloo/yii2-Asana.png)](https://codeclimate.com/github/marshmeloo/yii2-Asana)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/marshmeloo/yii2-Asana/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/marshmeloo/yii2-Asana/?branch=master)
+[![Version Eye](https://www.versioneye.com/php/marshmeloo:yii2-Asana/badge.svg)](https://www.versioneye.com/php/marshmeloo:yii2-Asana)
+[![License](https://poser.pugx.org/marshmeloo/yii2-Asana/license.svg)](https://packagist.org/packages/marshmeloo/yii2-Asana)
 
 ## Requirements
 
@@ -29,11 +29,11 @@ The preferred way to install this extension is through [Composer](http://getcomp
 
 Either run
 
-``` php composer.phar require monitorbacklinks/yii2-wordpress "dev-master" ```
+``` php composer.phar require marshmeloo/yii2-Asana "dev-master" ```
 
 or add
 
-``` "monitorbacklinks/yii2-wordpress": "dev-master"```
+``` "marshmeloo/yii2-Asana": "dev-master"```
 
 to the `require` section of your `composer.json` file.
 
@@ -49,7 +49,7 @@ component and configure it. Here is the example of minimal configuration (in you
     'components' => [
         ...
         'blog' => [
-            'class' => '\monitorbacklinks\yii2wp\Wordpress',
+            'class' => '\marshmeloo\yii2wp\Asana',
             'endpoint' => 'http://example.com/xmlrpc.php',
             'username' => 'demo',
             'password' => 'demo'
@@ -60,7 +60,7 @@ component and configure it. Here is the example of minimal configuration (in you
 
 ### First API request
 
-When component is configured, you can start making requests to your Wordpress site.
+When component is configured, you can start making requests to your Asana site.
 
 For example, get ten latest published posts. Select `guid`, `post_title` and `post_content` fields only:
 
@@ -80,12 +80,12 @@ Or create a new post with title "New post" and content "Hello world!":
 ### Caching request results
 
 Making API calls to an external application means delays.
-If you don't want your users to wait for a Wordpress response each time, caching is a right thing to do:
+If you don't want your users to wait for a Asana response each time, caching is a right thing to do:
 
 ```php
     // The user profile will be fetched from cache if available.
     // If not, the query will be made against XML-RPC API and cached for use next time.
-    $profile = Yii::$app->blog->cache(function (Wordpress $blog) {
+    $profile = Yii::$app->blog->cache(function (Asana $blog) {
         return $blog->getProfile();
     });
 ```
@@ -93,11 +93,11 @@ If you don't want your users to wait for a Wordpress response each time, caching
 In case, if you need something more complex, you can disable caching for some requests:
 
 ```php
-    $blogPosts = Yii::$app->blog->cache(function (Wordpress $blog) {
+    $blogPosts = Yii::$app->blog->cache(function (Asana $blog) {
 
         // ... queries that use query cache ...
 
-        return $blog->noCache(function (Wordpress $blog) {
+        return $blog->noCache(function (Asana $blog) {
             // this query will not use query cache
             return $blog->getPosts();
         });
@@ -112,17 +112,17 @@ Queries that create, update or delete records will not use caching component.
 
 #### `$endpoint`
 
-`string` Wordpress XML-RPC API endpoint URL.
+`string` Asana XML-RPC API endpoint URL.
 
 #### `$username`
 
-`string` Wordpress authentication username.
+`string` Asana authentication username.
 
 Please note, that any actions made by XML-RPC will be made on behalf of this user.
 
 #### `$password`
 
-`string` Wordpress authentication password.
+`string` Asana authentication password.
 
 #### `$proxyConfig`
 
@@ -156,7 +156,7 @@ Default value: `[]`.
 
 #### `$catchExceptions`
 
-`boolean` Whether to catch exceptions thrown by Wordpress API, pass them to the log and return default value,
+`boolean` Whether to catch exceptions thrown by Asana API, pass them to the log and return default value,
 or transmit them further along the call chain.
 
 Default value: `true`.
@@ -185,7 +185,7 @@ Default value: `'cache'`.
 ## List of available methods
 
 The full list of available methods can be found in
-[Wordpress XML-RPC PHP Client Class Reference](http://letrunghieu.github.io/wordpress-xmlrpc-client/api/class-HieuLe.WordpressXmlrpcClient.WordpressClient.html).
+[Asana XML-RPC PHP Client Class Reference](http://letrunghieu.github.io/Asana-xmlrpc-client/api/class-HieuLe.AsanaXmlrpcClient.AsanaClient.html).
 
 Please note, that all those methods are throwing an exceptions in case of any errors.
 While this extension is configured (by default), in case of errors, to return an empty array for any data retrial
@@ -193,9 +193,9 @@ methods and false for any create, update or delete methods. Please see `$catchEx
 
 ## Errors logging
 
-There are a lot of things that can go wrong (network problems, wrong Wordpress user permissions, etc.).
+There are a lot of things that can go wrong (network problems, wrong Asana user permissions, etc.).
 If `$catchExceptions` configuration option is set to `true` (default value), this extension will catch them and pass to
-`monitorbacklinks\yii2wp\Wordpress::*` logging category.
+`marshmeloo\yii2wp\Asana::*` logging category.
 
 In order to see them, you can configure your Yii2 `log` component to something similar to this:
 
@@ -207,7 +207,7 @@ In order to see them, you can configure your Yii2 `log` component to something s
                 'file' => [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error'],
-                    'categories' => ['monitorbacklinks\yii2wp\Wordpress::*'],
+                    'categories' => ['marshmeloo\yii2wp\Asana::*'],
                 ],
             ],
         ],
@@ -218,16 +218,16 @@ In order to see them, you can configure your Yii2 `log` component to something s
 
 ## Report
 
-- Report any issues [on the GitHub](https://github.com/monitorbacklinks/yii2-wordpress/issues).
+- Report any issues [on the GitHub](https://github.com/marshmeloo/yii2-Asana/issues).
 
 
 ## License
 
-**yii2-wordpress** is released under the MIT License. See the bundled `LICENSE.md` for details.
+**yii2-Asana** is released under the MIT License. See the bundled `LICENSE.md` for details.
 
 
 ## Resources
 
-- [Project Page](http://monitorbacklinks.github.io/yii2-wordpress)
-- [Packagist Package](https://packagist.org/packages/monitorbacklinks/yii2-wordpress)
-- [Source Code](https://github.com/monitorbacklinks/yii2-wordpress)
+- [Project Page](http://marshmeloo.github.io/yii2-Asana)
+- [Packagist Package](https://packagist.org/packages/marshmeloo/yii2-Asana)
+- [Source Code](https://github.com/marshmeloo/yii2-Asana)
