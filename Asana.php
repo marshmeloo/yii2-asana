@@ -21,10 +21,10 @@ use yii\validators\UrlValidator;
 use Yii;
 
 // Define some constants for later usage.
-define('ASANA_METHOD_POST', 1);
-define('ASANA_METHOD_PUT', 2);
-define('ASANA_METHOD_GET', 3);
-define('ASANA_METHOD_DELETE', 4);
+// define('ASANA_METHOD_POST', 1);
+// define('ASANA_METHOD_PUT', 2);
+// define('ASANA_METHOD_GET', 3);
+// define('ASANA_METHOD_DELETE', 4);
 
 class Asana extends Component{
 
@@ -36,7 +36,7 @@ class Asana extends Component{
     public $responseCode;
 
     private $endPointUrl;
-    private $apiKey;
+    private $apiKey = "4SAUDxuD.YNnycgRKDxxL3QYX3AQnIK9";
     private $accessToken;
     private $taskUrl;
     private $userUrl;
@@ -46,40 +46,32 @@ class Asana extends Component{
     private $tagsUrl;
     private $organizationsUrl;
 
+	public function init()
+    {
+        parent::init();
+
+		// If the API key is not ended by ":", we append it.
+		if (!empty($this->apiKey) && substr($this->apiKey, -1) !== ':') {
+			$this->apiKey .= ':';
+		}
+
+		$this->endPointUrl = 'https://app.asana.com/api/' . $this->asanaApiVersion . '/';
+		$this->taskUrl = $this->endPointUrl . 'tasks';
+		$this->userUrl = $this->endPointUrl . 'users';
+		$this->projectsUrl = $this->endPointUrl . 'projects';
+		$this->workspaceUrl = $this->endPointUrl . 'workspaces';
+		$this->storiesUrl = $this->endPointUrl . 'stories';
+		$this->tagsUrl = $this->endPointUrl . 'tags';
+		$this->organizationsUrl = $this->endPointUrl . 'organizations';
+		//$this->attachmentsUrl = $this->endPointUrl . 'attachments';
+	
+	}
     /**
      * Class constructor.
      *
      * @param array $options Array of options containing an apiKey OR and accessToken, not both.
      *                       Can be also an string if you want to use an apiKey.
      */
-    public function __construct($options) {
-        // For retro-compatibility purposes check if $options is a string,
-        // so if a user passes a string we use it as the app key.
-        if (is_string($options)) {
-            $this->apiKey = $options;
-        } else if (is_array($options) && !empty($options['apiKey'])) {
-            $this->apiKey = $options['apiKey'];
-        } else if (is_array($options) && !empty($options['accessToken'])) {
-            $this->accessToken = $options['accessToken'];
-        } else {
-            throw new Exception('You need to specify an API key or token');
-        }
-
-        // If the API key is not ended by ":", we append it.
-        if (!empty($this->apiKey) && substr($this->apiKey, -1) !== ':') {
-            $this->apiKey .= ':';
-        }
-
-        $this->endPointUrl = 'https://app.asana.com/api/' . $this->asanaApiVersion . '/';
-        $this->taskUrl = $this->endPointUrl . 'tasks';
-        $this->userUrl = $this->endPointUrl . 'users';
-        $this->projectsUrl = $this->endPointUrl . 'projects';
-        $this->workspaceUrl = $this->endPointUrl . 'workspaces';
-        $this->storiesUrl = $this->endPointUrl . 'stories';
-        $this->tagsUrl = $this->endPointUrl . 'tags';
-        $this->organizationsUrl = $this->endPointUrl . 'organizations';
-        $this->attachmentsUrl = $this->endPointUrl . 'attachments';
-    }
 
 
     /**
@@ -896,4 +888,10 @@ class Asana extends Component{
 
         return $return;
     }
+	
+	public function vk(){
+		$result = "haha";
+		
+		return $result;
+	}
 }
